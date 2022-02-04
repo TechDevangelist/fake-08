@@ -66,7 +66,7 @@ CC = $(CXX)
 
 ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
 
-CFLAGS	:=	-g -Wall -Ofast -mword-relocations \
+CFLAGS	:=	-Wall -Ofast -mword-relocations \
 			-fomit-frame-pointer -ffunction-sections \
 			$(ARCH)
 
@@ -74,8 +74,8 @@ CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS -DVER_STR=\"$(APP_VERSION)\"
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fexceptions -std=gnu++17
 
-ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
+ASFLAGS	:=	$(ARCH)
+LDFLAGS	=	-specs=3dsx.specs $(ARCH) -Wl,-Map,$(notdir $*.map)
 
 LIBS	:= -lcitro2d -lcitro3d -lctru -lm
 

@@ -50,15 +50,15 @@ CC = $(CXX)
 
 ARCH	:=	-march=armv8-a -mtune=cortex-a57 -mtp=soft -fPIE
 
-CFLAGS	:=	-g -Wall -O2 -ffunction-sections -DVER_STR=\"$(APP_VERSION)\" \
+CFLAGS	:=	-Wall -O2 -ffunction-sections -DVER_STR=\"$(APP_VERSION)\" \
 			$(ARCH) $(DEFINES)
 
 CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fexceptions -std=gnu++17
 
-ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
+ASFLAGS	:=	$(ARCH)
+LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs $(ARCH) -Wl,-Map,$(notdir $*.map)
 
 LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf` \
 			-lnx

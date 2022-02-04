@@ -33,7 +33,7 @@ LIBRARIES	:=	SDL2_gfx SDL2_image SDL2_mixer SDL2_ttf sdl2 \
 #-------------------------------------------------------------------------------
 CC = $(CXX)
 
-CFLAGS		:=	-g -Wall -O2 -ffunction-sections -DVER_STR=\"$(APP_VERSION)\" \
+CFLAGS		:=	-Wall -O2 -ffunction-sections -DVER_STR=\"$(APP_VERSION)\" \
 			-ffast-math \
 			$(MACHDEP)
 
@@ -43,8 +43,8 @@ CFLAGS		+=	`$(PKGCONF) --cflags $(LIBRARIES)`
 
 CXXFLAGS	:=	$(CFLAGS) -std=gnu++17
 
-ASFLAGS		:=	-g $(MACHDEP)
-LDFLAGS		:=	-g $(MACHDEP) $(RPXSPECS) -Wl,-Map,$(notdir $*.map)
+ASFLAGS		:=	$(MACHDEP)
+LDFLAGS		:=	$(MACHDEP) $(RPXSPECS) -Wl,-Map,$(notdir $*.map)
 
 LIBS		:=	`$(PKGCONF) --libs $(LIBRARIES)`
 LIBS		+= -lwut
