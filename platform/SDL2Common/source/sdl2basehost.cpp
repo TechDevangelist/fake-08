@@ -301,19 +301,28 @@ bool Host::shouldQuit() {
 }
 
 void Host::waitForTargetFps(){
-    now_time = SDL_GetTicks();
-    frame_time = now_time - last_time;
-	last_time = now_time;
+    uint32_t currFrameTime = getFrameTimeMs();
 
+	waitForTargetFps(currFrameTime);
+}
 
+void Host::waitForTargetFps(uint32_t currFrameTime){
 	//sleep for remainder of time
-	if (frame_time < targetFrameTimeMs) {
+	if (currFrameTime < targetFrameTimeMs) {
 		uint32_t msToSleep = targetFrameTimeMs - frame_time;
         
         SDL_Delay(msToSleep);
 
 		last_time += msToSleep;
 	}
+}
+
+uint32_t Host::getFrameTimeMs(){
+    now_time = SDL_GetTicks();
+    frame_time = now_time - last_time;
+	last_time = now_time;
+
+    return frame_time;
 }
 
 

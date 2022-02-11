@@ -564,13 +564,17 @@ string Vm::GetBiosError() {
 }
 
 void Vm::GameLoop() {
+    uint32_t frameTime;
     while (_host->shouldRunMainLoop())
 	{
 		//shouldn't need to set this every frame
 		_host->setTargetFps(_targetFps);
 
 		//is this better at the end of the loop?
-		_host->waitForTargetFps();
+		//_host->waitForTargetFps();
+        frameTime = _host->getFrameTimeMs();
+        _host->waitForTargetFps(frameTime);
+
 
 		if (_host->shouldQuit()) break; // break in order to return to hbmenu
 		//this should probably be handled just in the host class
@@ -580,6 +584,11 @@ void Vm::GameLoop() {
 		//it should update call the pico part of scanInput and set the values in memory
 		//then we don't need to pass them in here
 		UpdateAndDraw();
+
+        //for rough perf testing
+        uint8_t oldC = _memory->drawState.color;
+        _graphics->print(to_string(frameTime), 110,120, 14);
+        _memory->drawState.color = oldC;
 
 		uint8_t* picoFb = GetPicoInteralFb();
 		uint8_t* screenPaletteMap = GetScreenPaletteMap();

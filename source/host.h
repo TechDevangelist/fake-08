@@ -56,6 +56,8 @@ class Host {
     void changeStretch();
     
     void waitForTargetFps();
+    void waitForTargetFps(uint32_t frameTime);
+    uint32_t getFrameTimeMs();
 
     void drawFrame(uint8_t* picoFb, uint8_t* screenPaletteMap, uint8_t drawMode);
 
@@ -65,8 +67,6 @@ class Host {
     void playFilledAudioBuffer();
 
     void oneTimeCleanup();
-
-    double deltaTMs();
 
     std::vector<std::string> listcarts();
 

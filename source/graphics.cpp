@@ -164,6 +164,12 @@ void Graphics::copySpriteToScreen(
 	//since we get 2 pixels at a time, don't go through this whole loop every pixel
 	for (int y = 0; y < scr_h; y++) {
 		int x = 0;
+		//naive memcpy implementation to test perf
+		memcpy(
+			(uint8_t*)(screenBuffer + (size_t)(COMBINED_IDX(scr_x, scr_y + y))),
+			(uint8_t*)(spritebuffer + (size_t)(COMBINED_IDX(spr_x, spr_y + y))),
+			scr_w / 2);
+		/*
 		while (x < scr_w) {
 			int abs_spr_x = spr_x + (flip_x ? spr_w - (x + 1) : x);
 			int abs_spr_y = spr_y + (flip_y ? spr_h - (y + 1) : y);
@@ -229,7 +235,7 @@ void Graphics::copySpriteToScreen(
 			}
 			
 		}
-
+		*/
 	}
 }
 
