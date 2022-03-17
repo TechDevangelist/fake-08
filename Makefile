@@ -45,6 +45,9 @@ clean-bittboy:
 clean-miyoomini:
 	@$(MAKE) -C platform/miyoomini clean
 
+clean-gcw0:
+	@$(MAKE) -C platform/gcw0 clean
+
 3ds:
 	@$(MAKE) -C platform/3ds
 
@@ -71,6 +74,9 @@ bittboy:
 
 miyoomini:
 	@$(MAKE) -C platform/miyoomini
+
+gcw0:
+	@$(MAKE) -C platform/gcw0
 
 clean-tests:
 	@$(MAKE) -C test clean
