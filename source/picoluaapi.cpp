@@ -1257,6 +1257,12 @@ int reset(lua_State *L) {
     return 0;
 }
 
+int setFps(lua_State *L){
+    _vmForLuaApi->setTargetFps(lua_tointeger(L, 1));
+
+    return 0;
+}
+
 int listcarts(lua_State *L) {
     //get cart list from VM (who should get it from host)
     vector<string> carts = _vmForLuaApi->GetCartList();

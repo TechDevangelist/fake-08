@@ -134,6 +134,7 @@ class Vm {
 
     void vm_reset();
 
+    void setTargetFps(int targetFps);
     int getFps();
     int getTargetFps();
 
