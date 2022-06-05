@@ -54,6 +54,9 @@ clean-gkd:
 clean-miyoomini:
 	@$(MAKE) -C platform/miyoomini clean
 
+clean-miyoomini-miniui:
+	@$(MAKE) -C platform/miyoomini-miniui clean
+
 clean-windows:
 	@$(MAKE) -C platform/windows clean
 
@@ -92,6 +95,9 @@ gkd:
 
 miyoomini:
 	@$(MAKE) -C platform/miyoomini
+
+miyoomini-miniui:
+	@$(MAKE) -C platform/miyoomini-miniui
 
 windows:
 	@$(MAKE) -C platform/windows

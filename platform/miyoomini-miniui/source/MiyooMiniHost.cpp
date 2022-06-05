@@ -102,9 +102,7 @@ void audioCleanup(){
 
     #else
     AO_PauseAudio(1);
-
     audioInitialized = false;
-
     AO_CloseAudio();
     #endif
 }
@@ -137,6 +135,7 @@ void audioSetup(){
         audioInitialized = true;
     }
     #else
+    // Attempt to open AO interface, if failed thena audioserver may be running, fail back to SDL standard audio handler
     AO_OpenAudio(&want, NULL);
     AO_PauseAudio(0);
     audioInitialized = true;
@@ -211,8 +210,11 @@ Host::Host() {
     _logFilePrefix = home + "/fake08";
 
     #else
-    _cartDirectory = "/mnt/SDCARD/Roms/PICO";
-	_logFilePrefix = "/mnt/SDCARD/Roms/PICO/";
+    std::string saves = getenv("SAVES_PATH");
+    std::string roms = getenv("ROMS_PATH");
+
+    _cartDirectory = roms;
+    _logFilePrefix = saves + "/P8/";
 
     struct stat st = {0};
     int res = 0;
@@ -561,11 +563,8 @@ void Host::drawFrame(uint8_t* picoFb, uint8_t* screenPaletteMap, uint8_t drawMod
                 uint8_t c = getPixelNibble(x, y, picoFb);
                 uint32_t col = _mapped32BitColors[screenPaletteMap[c]];
 
-                #ifdef _DESKTOP
+                //customSDL handles rotation
                 base = ((uint32_t *)pixels) + (y * PicoScreenHeight + x);
-                #else
-                base = ((uint32_t *)pixels) + ((127 - y) * PicoScreenHeight + (127 - x));
-                #endif
                 base[0] = col;
             }
         }
